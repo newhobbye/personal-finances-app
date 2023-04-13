@@ -1,4 +1,4 @@
-﻿namespace core_application.Models
+﻿namespace core_application.Models.Account
 {
     public class Account
     {
