@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public int Code { get; set; }
         public double Balance { get; set; }
-        public List<OldBalance> OldBalances { get; set; }
+        public virtual ICollection<OldBalance> OldBalances { get; set; }
 
     }
 }
