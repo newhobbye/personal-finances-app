@@ -7,5 +7,11 @@
         public double OldBalanceValue { get; set; }
         public Account Account { get; set; }
         public DateTime BalanceDate { get; set; }
+
+        public OldBalance()
+        {
+            Id = new Guid();
+            BalanceDate = DateTime.Now;
+        }
     }
 }

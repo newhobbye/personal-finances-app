@@ -7,5 +7,10 @@
         public double Balance { get; set; }
         public virtual ICollection<OldBalance> OldBalances { get; set; }
 
+        public Account()
+        {
+            Id = new Guid();
+            OldBalances = new List<OldBalance>();
+        }
     }
 }
