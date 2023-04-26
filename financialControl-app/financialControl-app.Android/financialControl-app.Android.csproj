@@ -88,9 +88,9 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\financialControl-app\financialControl-app.csproj">
-      <Project>{1FD4003F-49C4-44A0-8D5E-50C139646130}</Project>
-      <Name>financialControl-app</Name>
+    <ProjectReference Include="..\financialControl-app\financialControlapp.csproj">
+      <Project>{D3D8F608-6FA5-4D92-A8E8-7390CC1F9A9F}</Project>
+      <Name>financialControlapp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -1,5 +1,6 @@
 ﻿using core_application.Models.Account;
 using core_application.Models.Deposits;
+using core_application.Models.Environment;
 using core_application.Models.Expenses;
 using core_application.Models.UserCategories;
 using core_application.Repositories.Configurations;
@@ -9,6 +10,7 @@ namespace core_application.Repositories
 {
     public class ApplicationContext: DbContext
     {
+        private ConstantsInjectionModel _constants;
         public DbSet<Account> Accounts { get; set; }
         public DbSet<OldBalance> OldBalances { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
@@ -16,10 +18,11 @@ namespace core_application.Repositories
         public DbSet<UserDepositCategory> UserDepositCategories { get; set; }
         public DbSet<UserExpenseCategory> UserExpenseCategories { get; set; }
 
-        public ApplicationContext()
+        public ApplicationContext(ConstantsInjectionModel constants)
         {
             //comando que garante a existencia do banco de dados
             Database.EnsureCreated();
+            _constants = constants;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

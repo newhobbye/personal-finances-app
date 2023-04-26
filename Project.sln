@@ -5,9 +5,9 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "financialControl-app.Android", "financialControl-app\financialControl-app.Android\financialControl-app.Android.csproj", "{207EA9CC-408A-4329-8DB4-352E31C43AF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "financialControl-app", "financialControl-app\financialControl-app\financialControl-app.csproj", "{D3D8F608-6FA5-4D92-A8E8-7390CC1F9A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "financialControlapp", "financialControl-app\financialControl-app\financialControlapp.csproj", "{D3D8F608-6FA5-4D92-A8E8-7390CC1F9A9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "core-application", "core-application\core-application.csproj", "{10FE97B2-8C70-4F76-98F6-B51EDB61FF4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "core-application", "core-application\core-application.csproj", "{10FE97B2-8C70-4F76-98F6-B51EDB61FF4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,11 +1,11 @@
-﻿using core_application.Models.Account;
+﻿using core_application.Interfaces.Repository;
+using core_application.Models.Account;
 using Microsoft.EntityFrameworkCore;
 
 namespace core_application.Repositories
 {
-    public class AccountRepository
+    public class AccountRepository: IAccountRepository
     {
-
         private readonly ApplicationContext _applicationContext;
 
         public AccountRepository(ApplicationContext applicationContext)
@@ -29,9 +29,9 @@ namespace core_application.Repositories
             }
 
             _applicationContext.Accounts.Add(account);
-            _applicationContext.SaveChanges();
+            int line = await _applicationContext.SaveChangesAsync();
 
-            return true;
+            return (line > 0)? true: false;
         }
 
         public async Task<bool> UpdateAccount(Account account)
@@ -42,8 +42,9 @@ namespace core_application.Repositories
             }
 
             _applicationContext.Accounts.Update(account);
+            int line = await _applicationContext.SaveChangesAsync();
 
-            return true;
+            return (line > 0) ? true : false;
         }
 
         public async Task<bool> DeleteAccount(Account account)
@@ -59,7 +60,9 @@ namespace core_application.Repositories
             }
             _applicationContext.Accounts.Remove(account);
 
-            return true;
+            int line = await _applicationContext.SaveChangesAsync();
+
+            return (line > 0) ? true : false;
         }
 
 

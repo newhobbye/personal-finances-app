@@ -1,8 +1,9 @@
-﻿using core_application.Models.Account;
+﻿using core_application.Interfaces.Repository;
+using core_application.Models.Account;
 
 namespace core_application.Repositories
 {
-    public class OldBalanceRepository
+    public class OldBalanceRepository: IOldBalanceRepository
     {
 
         private readonly ApplicationContext _applicationContext;
@@ -17,7 +18,10 @@ namespace core_application.Repositories
             if(balance == null) { return false; }
 
             _applicationContext.OldBalances.Add(balance);
-            return true;
+
+            int line = await _applicationContext.SaveChangesAsync();
+
+            return (line > 0) ? true : false;
         }
 
         public async Task<List<OldBalance>> GetBalances(Guid id)
