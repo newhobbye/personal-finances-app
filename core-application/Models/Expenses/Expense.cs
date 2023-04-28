@@ -12,7 +12,7 @@ namespace core_application.Models.Expenses
         public UserExpenseCategory UserCategory { get; set; }
         public StatusPayment Status { get; set; }
         public DateTime CreationDate { get; set; } 
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
         
     }

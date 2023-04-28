@@ -1,4 +1,6 @@
-﻿namespace core_application.Models.Account
+﻿using Microsoft.Identity.Client;
+
+namespace core_application.Models.Account
 {
     public class OldBalance
     {
@@ -12,6 +14,17 @@
         {
             Id = new Guid();
             BalanceDate = DateTime.Now;
+        }
+
+        public static OldBalance CreateOldBalance(Account account)
+        {
+            var balance = new OldBalance
+            {
+                AccountId = account.Id,
+                OldBalanceValue = account.Balance,
+            };
+
+            return balance;
         }
     }
 }
