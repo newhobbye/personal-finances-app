@@ -15,7 +15,12 @@ namespace core_application.Repositories
 
         public async Task<List<Deposit>> GetDeposits()
         {
-            return _applicationContext.Deposits.Include(c => c.UserCategory).ToList();
+            return await _applicationContext.Deposits.Include(c => c.UserCategory).ToListAsync();
+        }
+
+        public async Task<Deposit> GetDepositById(Guid id)
+        {
+            return await _applicationContext.Deposits.Include(c => c.UserCategory).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<bool> InsertDeposit(Deposit deposit)

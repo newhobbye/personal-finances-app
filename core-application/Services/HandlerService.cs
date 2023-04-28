@@ -26,6 +26,7 @@ namespace core_application.Services
         //deposito e despesas
         public async Task<bool> OperationInBalanceAccount<T>(T operation)
         {
+            //tratar validações pois mesmo que de erro, vai considerar só a operação final
             var account = await GetAccount();
             bool success = false;
 
@@ -41,6 +42,7 @@ namespace core_application.Services
 
                 account.OldBalances.Add(balance);
                 account.UpdateAccount(deposit);
+                success = await _depositRepository.InsertDeposit(deposit);
             }
             else if (operation is Expense expense)
             {
@@ -49,9 +51,97 @@ namespace core_application.Services
 
                 account.OldBalances.Add(balance);
                 account.UpdateAccount(expense);
+                success = await _expenseRepository.InsertExpense(expense);
             }
 
             success = await UpdateAccount(account);
+
+            return success;
+
+        }
+
+        public async Task<bool> EditBalanceAccount(double value)
+        {
+            //tratar validações pois mesmo que de erro, vai considerar só a operação final
+            var account = await GetAccount();
+            bool success = false;
+
+            if (account == null)
+            {
+                return success;
+            }
+
+            var oldBalance = OldBalance.CreateOldBalance(account);
+            success = await _oldBalanceRepository.Insert(oldBalance);
+
+            account.Balance = value;
+            account.OldBalances.Add(oldBalance);
+
+            success = await _accountRepository.UpdateAccount(account);
+
+            return success;
+
+        }
+
+        public async Task<bool> EditExpenseOrDeposit<T>(T operation)
+        {
+            //tratar validações pois mesmo que de erro, vai considerar só a operação final
+            var account = await GetAccount();
+            bool success = false;
+
+            if (account == null)
+            {
+                return success;
+            }
+
+            var oldBalance = OldBalance.CreateOldBalance(account);
+            success = await _oldBalanceRepository.Insert(oldBalance);
+            account.OldBalances.Add(oldBalance);
+
+            if (operation is Deposit deposit)
+            {
+                var depositInDB = await _depositRepository.GetDepositById(deposit.Id);
+                var oldValue = depositInDB.Value;
+                var diferenceValue = 0.0;
+
+                if(oldValue > deposit.Value)
+                {
+                    //diferença negativa
+                    diferenceValue = oldValue - deposit.Value;
+                    account.Balance -= diferenceValue; 
+                }
+                else
+                {
+                    //diferença positiva
+                    diferenceValue = deposit.Value - oldValue;
+                    account.Balance += diferenceValue;
+                }
+
+                success = await _depositRepository.UpdateDeposit(deposit);
+            }
+            else if (operation is Expense expense)
+            {
+                var expenseInDb = await _expenseRepository.GetExpenseById(expense.Id);
+                var oldValue = expenseInDb.Value;
+                var diferenceValue = 0.0;
+
+                if (oldValue > expense.Value)
+                {
+                    //diferença positiva
+                    diferenceValue = oldValue - expense.Value;
+                    account.Balance += diferenceValue;
+                }
+                else
+                {
+                    //diferença negativa
+                    diferenceValue = expense.Value - oldValue;
+                    account.Balance -= diferenceValue;
+                }
+
+                success = await _expenseRepository.UpdateExpense(expense);
+            }
+
+            success = await _accountRepository.UpdateAccount(account);
 
             return success;
 
@@ -72,7 +162,6 @@ namespace core_application.Services
             await _accountRepository.DeleteAccount(account);
 
         #endregion
-
 
 
     }

@@ -15,7 +15,12 @@ namespace core_application.Repositories
 
         public async Task<List<Expense>> GetExpenses()
         {
-            return _applicationContext.Expenses.Include(c => c.UserCategory).ToList();
+            return await _applicationContext.Expenses.Include(c => c.UserCategory).ToListAsync();
+        }
+
+        public async Task<Expense> GetExpenseById(Guid id)
+        {
+            return await _applicationContext.Expenses.Include(c => c.UserCategory).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<bool> InsertExpense(Expense expense)

@@ -13,5 +13,11 @@ namespace core_application.Models.Deposits
         public StatusPayment Status { get; set; }
         public DateTime CreationDate { get; set; }
         public string? Note { get; set; }
+
+        public Deposit()
+        {
+            Id = new Guid();
+            CreationDate = DateTime.Now;
+        }
     }
 }

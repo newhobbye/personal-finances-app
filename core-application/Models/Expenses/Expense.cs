@@ -14,6 +14,10 @@ namespace core_application.Models.Expenses
         public DateTime CreationDate { get; set; } 
         public string? Note { get; set; }
 
-        
+        public Expense()
+        {
+            Id = new Guid();
+            CreationDate = DateTime.Now;
+        }
     }
 }
