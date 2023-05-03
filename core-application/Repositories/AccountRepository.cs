@@ -23,7 +23,7 @@ namespace core_application.Repositories
         public async Task<bool> InsertAccount(Account account)
         {
 
-            if (GenericValidation(account) == false)
+            if (await GenericValidation(account) == false)
             {
                 return false;
             }
@@ -36,7 +36,7 @@ namespace core_application.Repositories
 
         public async Task<bool> UpdateAccount(Account account)
         {
-            if (GenericValidation(account) == false)
+            if (await GenericValidation(account) == false)
             {
                 return false;
             }
@@ -49,7 +49,7 @@ namespace core_application.Repositories
 
         public async Task<bool> DeleteAccount(Account account)
         {
-            if (GenericValidation(account) == false)
+            if (await GenericValidation(account) == false)
             {
                 return false;
             }
@@ -68,9 +68,9 @@ namespace core_application.Repositories
 
 
 
-        private bool GenericValidation(Account account)
+        private async Task<bool> GenericValidation(Account account)
         {
-            var accountExist = GetAccount();
+            var accountExist = await GetAccount();
 
             if (account == null || accountExist != null)
             {

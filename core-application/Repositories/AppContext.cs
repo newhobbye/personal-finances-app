@@ -10,7 +10,7 @@ namespace core_application.Repositories
 {
     public class ApplicationContext: DbContext
     {
-        private ConstantsInjectionModel _constants;
+        //private ConstantsInjectionModel _constants;
         public DbSet<Account> Accounts { get; set; }
         public DbSet<OldBalance> OldBalances { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
@@ -18,17 +18,17 @@ namespace core_application.Repositories
         public DbSet<UserDepositCategory> UserDepositCategories { get; set; }
         public DbSet<UserExpenseCategory> UserExpenseCategories { get; set; }
 
-        public ApplicationContext(ConstantsInjectionModel constants)
+        public ApplicationContext() //ConstantsInjectionModel constants
         {
             //comando que garante a existencia do banco de dados
             Database.EnsureCreated();
-            _constants = constants;
+            //_constants = constants;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlite($"Filename={Constants.Constant.DatabaseFilename}");
-            optionsBuilder.UseSqlite($"Filename={_constants.DatabaseFilename}");
+            optionsBuilder.UseSqlite($"Filename={Constants.Constant.DatabaseFilename}");
+            //optionsBuilder.UseSqlite($"Filename={_constants.DatabaseFilename}");
         }
 
         //se não me engano, isso é fluentAPI

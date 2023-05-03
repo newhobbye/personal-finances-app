@@ -1,16 +1,17 @@
-﻿using core_application.Shared;
+﻿using core_application.Models.Environment;
+using core_application.Shared;
 using DomainTests.Constants;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DomainTests.Dependency
 {
-    public class DependencyInjection
+    public static class DependencyInjection
     {
-        public T GetService<T>()
+        public static T GetService<T>()
         {
             var serviceCollection = new ServiceCollection();
 
-            serviceCollection.AddDependencies(EnviromentConstant.DatabaseFilename, EnviromentConstant.DatabasePath);
+            serviceCollection.AddDependencies();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 

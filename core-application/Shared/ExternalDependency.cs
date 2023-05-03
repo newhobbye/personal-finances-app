@@ -10,27 +10,28 @@ namespace core_application.Shared
 {
     public static class ExternalDependency
     {
-        public static IServiceCollection AddDependencies(this IServiceCollection services,
-            string databaseFilename, string databasePath)
+        public static IServiceCollection AddDependencies(this IServiceCollection services)
         {
-            services.TryAdd(new ServiceDescriptor(
-                typeof(ApplicationContext),
-                serviceProvider => new ApplicationContext(new ConstantsInjectionModel(databaseFilename, databasePath)), ServiceLifetime.Scoped));
+            //services.TryAdd(new ServiceDescriptor(
+            //    typeof(ApplicationContext),
+            //    serviceProvider => new ApplicationContext(constantsInjection), ServiceLifetime.Scoped));
+
+            services.TryAddScoped<ApplicationContext>();
 
             services.TryAdd(new ServiceDescriptor(
-                typeof(AccountRepository), typeof(IAccountRepository), ServiceLifetime.Scoped));
+                typeof(IAccountRepository), typeof(AccountRepository), ServiceLifetime.Scoped));
 
             services.TryAdd(new ServiceDescriptor(
-                typeof(DepositRepository), typeof(IDepositRepository), ServiceLifetime.Scoped));
+                typeof(IDepositRepository), typeof(DepositRepository), ServiceLifetime.Scoped));
 
             services.TryAdd(new ServiceDescriptor(
-                typeof(ExpenseRepository), typeof(IExpenseRepository), ServiceLifetime.Scoped));
+                typeof(IExpenseRepository), typeof(ExpenseRepository), ServiceLifetime.Scoped));
 
             services.TryAdd(new ServiceDescriptor(
-                typeof(OldBalanceRepository), typeof(IOldBalanceRepository), ServiceLifetime.Scoped));
+                typeof(IOldBalanceRepository), typeof(OldBalanceRepository), ServiceLifetime.Scoped));
 
             services.TryAdd(new ServiceDescriptor(
-                typeof(HandlerService), typeof(IHandlerService), ServiceLifetime.Scoped));
+                typeof(IHandlerService), typeof(HandlerService), ServiceLifetime.Scoped));
 
             return services;
         }
