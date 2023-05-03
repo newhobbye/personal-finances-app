@@ -1,11 +1,12 @@
 ﻿using core_application.Interfaces.Repository;
+using core_application.Interfaces.Services;
 using core_application.Models.Account;
 using core_application.Models.Deposits;
 using core_application.Models.Expenses;
 
 namespace core_application.Services
 {
-    public class HandlerService
+    public class HandlerService : IHandlerService
     {
         private readonly IAccountRepository _accountRepository;
         private readonly IOldBalanceRepository _oldBalanceRepository;

@@ -27,7 +27,8 @@ namespace core_application.Repositories
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Filename={Constants.Constant.DatabaseFilename}");
+            //optionsBuilder.UseSqlite($"Filename={Constants.Constant.DatabaseFilename}");
+            optionsBuilder.UseSqlite($"Filename={_constants.DatabaseFilename}");
         }
 
         //se não me engano, isso é fluentAPI
