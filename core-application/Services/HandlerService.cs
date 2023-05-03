@@ -136,5 +136,21 @@ namespace core_application.Services
 
         }
 
+        #region[Manipulação de conta]
+
+        public async Task<bool> CreateAccount(Account account) =>
+            await _accountRepository.InsertAccount(account);
+
+        public async Task<bool> UpdateAccount(Account account) =>
+            await _accountRepository.UpdateAccount(account);
+
+        public async Task<Account> GetAccount() =>
+            await _accountRepository.GetAccount();
+
+        public async Task<bool> DeleteAccount(Account account) =>
+            await _accountRepository.DeleteAccount(account);
+
+        #endregion
+
     }
 }
