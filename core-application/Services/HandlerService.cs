@@ -23,79 +23,67 @@ namespace core_application.Services
 
         //terminar service, ver se o banco vai precisar de migrations e ver mais sobre o path do db
 
-        //deposito e despesas
         public async Task<bool> OperationInBalanceAccount<T>(T operation)
         {
             //tratar validações pois mesmo que de erro, vai considerar só a operação final
-            var account = await GetAccount();
-            bool success = false;
+            var account = await _accountRepository.GetAccount();
 
-            if (account == null)
-            {
-                return success;
-            }
+            if (account == null) return false;
+            
 
             if (operation is Deposit deposit)
             {
                 var balance = OldBalance.CreateOldBalance(account);
-                success = await _oldBalanceRepository.Insert(balance);
+                if (!await _oldBalanceRepository.Insert(balance)) return false;
 
                 account.OldBalances.Add(balance);
                 account.UpdateAccount(deposit);
-                success = await _depositRepository.InsertDeposit(deposit);
+                if (!await _depositRepository.InsertDeposit(deposit)) return false;
             }
             else if (operation is Expense expense)
             {
                 var balance = OldBalance.CreateOldBalance(account);
-                success = await _oldBalanceRepository.Insert(balance);
+                if (!await _oldBalanceRepository.Insert(balance)) return false;
 
                 account.OldBalances.Add(balance);
                 account.UpdateAccount(expense);
-                success = await _expenseRepository.InsertExpense(expense);
+                if (!await _expenseRepository.InsertExpense(expense)) return false;
             }
 
-            success = await UpdateAccount(account);
+            if (!await _accountRepository.UpdateAccount(account)) return false; 
 
-            return success;
+            return true;
 
         }
 
         public async Task<bool> EditBalanceAccount(double value)
         {
-            //tratar validações pois mesmo que de erro, vai considerar só a operação final
-            var account = await GetAccount();
-            bool success = false;
+            var account = await _accountRepository.GetAccount();
 
-            if (account == null)
-            {
-                return success;
-            }
-
+            if (account == null) return false;
+            
             var oldBalance = OldBalance.CreateOldBalance(account);
-            success = await _oldBalanceRepository.Insert(oldBalance);
+            if(!await _oldBalanceRepository.Insert(oldBalance)) return false;
 
             account.Balance = value;
             account.OldBalances.Add(oldBalance);
 
-            success = await _accountRepository.UpdateAccount(account);
+            if (!await _accountRepository.UpdateAccount(account)) return false;
 
-            return success;
+            return true;
 
         }
 
         public async Task<bool> EditExpenseOrDeposit<T>(T operation)
         {
-            //tratar validações pois mesmo que de erro, vai considerar só a operação final
-            var account = await GetAccount();
-            bool success = false;
+            var account = await _accountRepository.GetAccount();
 
-            if (account == null)
-            {
-                return success;
-            }
+            if (account == null) return false;
 
             var oldBalance = OldBalance.CreateOldBalance(account);
-            success = await _oldBalanceRepository.Insert(oldBalance);
+
+            if (!await _oldBalanceRepository.Insert(oldBalance)) return false;
+
             account.OldBalances.Add(oldBalance);
 
             if (operation is Deposit deposit)
@@ -117,7 +105,7 @@ namespace core_application.Services
                     account.Balance += diferenceValue;
                 }
 
-                success = await _depositRepository.UpdateDeposit(deposit);
+                if (!await _depositRepository.UpdateDeposit(deposit)) return false;
             }
             else if (operation is Expense expense)
             {
@@ -138,31 +126,14 @@ namespace core_application.Services
                     account.Balance -= diferenceValue;
                 }
 
-                success = await _expenseRepository.UpdateExpense(expense);
+                if(!await _expenseRepository.UpdateExpense(expense)) return false;
             }
 
-            success = await _accountRepository.UpdateAccount(account);
+            if (!await _accountRepository.UpdateAccount(account)) return false;
 
-            return success;
+            return true;
 
         }
-
-        #region[Manipulação de conta]
-
-        public async Task<bool> CreateAccount(Account account) =>
-            await _accountRepository.InsertAccount(account);
-
-        public async Task<bool> UpdateAccount(Account account) =>
-            await _accountRepository.UpdateAccount(account);
-
-        public async Task<Account> GetAccount() =>
-            await _accountRepository.GetAccount();
-
-        public async Task<bool> DeleteAccount(Account account) =>
-            await _accountRepository.DeleteAccount(account);
-
-        #endregion
-
 
     }
 }
