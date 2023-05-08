@@ -10,7 +10,6 @@ namespace core_application.Repositories.Configurations
         public void Configure(EntityTypeBuilder<Account> builder)
         {
                 builder.HasKey(a => a.Id);
-                builder.Property(a => a.Code).ValueGeneratedOnAdd();
                 builder.Property(a => a.Balance).IsRequired();
                 builder.HasMany(old => old.OldBalances).WithOne().HasForeignKey(foregin => foregin.AccountId);
         }

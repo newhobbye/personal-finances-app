@@ -22,9 +22,8 @@ namespace DomainTests
             var account = new Account
             {
                 Balance = 1000,
-                Code = 1
             };
-
+            //code danto pau sem estar na entidade do db
             var result = await _handlerService.CreateAccount(account);
 
             Assert.True(result);
@@ -34,6 +33,15 @@ namespace DomainTests
         public async Task GetAccountTest()
         {
             var result = await _handlerService.GetAccount();
+
+            Assert.NotNull(result);
+        }
+
+        [Fact(DisplayName = "Removendo uma conta")]
+        public async Task DeleteAccountTest()
+        {
+            var account = await _handlerService.GetAccount();
+            var result = await _handlerService.DeleteAccount(account);
 
             Assert.NotNull(result);
         }

@@ -11,8 +11,8 @@ using core_application.Repositories;
 namespace core_application.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230503181103_DBConfig")]
-    partial class DBConfig
+    [Migration("20230508140546_Config3")]
+    partial class Config3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,10 +28,6 @@ namespace core_application.Migrations
 
                     b.Property<double>("Balance")
                         .HasColumnType("REAL");
-
-                    b.Property<int>("Code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

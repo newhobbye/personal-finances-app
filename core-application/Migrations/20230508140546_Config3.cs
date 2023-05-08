@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace core_application.Migrations
 {
     /// <inheritdoc />
-    public partial class DBConfig : Migration
+    public partial class Config3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,6 @@ namespace core_application.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Code = table.Column<int>(type: "INTEGER", nullable: false),
                     Balance = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>

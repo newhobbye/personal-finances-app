@@ -20,6 +20,13 @@ namespace core_application.Repositories
                 .ToList().FirstOrDefault()!;
         }
 
+        public async Task<Account> GetAccountById(Guid id)
+        {
+            return _applicationContext.Accounts
+                .Include(old => old.OldBalances)
+                .ToList().FirstOrDefault(x => x.Id == id)!;
+        }
+
         public async Task<bool> InsertAccount(Account account)
         {
 
@@ -49,7 +56,14 @@ namespace core_application.Repositories
 
         public async Task<bool> DeleteAccount(Account account)
         {
-            if (await GenericValidation(account) == false)
+            if (account == null)
+            {
+                return false;
+            }
+
+            var accountExist = await GetAccountById(account.Id);
+
+            if(accountExist == null)
             {
                 return false;
             }
