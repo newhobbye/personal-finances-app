@@ -27,7 +27,7 @@ namespace core_application.Services
         public async Task<bool> OperationInBalanceAccount<T>(T operation)
         {
             //tratar validações pois mesmo que de erro, vai considerar só a operação final
-            var account = await _accountRepository.GetAccount();
+            var account = await GetAccount();
 
             if (account == null) return false;
             
@@ -51,7 +51,7 @@ namespace core_application.Services
                 if (!await _expenseRepository.InsertExpense(expense)) return false;
             }
 
-            if (!await _accountRepository.UpdateAccount(account)) return false; 
+            if (!await UpdateAccount(account)) return false; 
 
             return true;
 
@@ -59,7 +59,7 @@ namespace core_application.Services
 
         public async Task<bool> EditBalanceAccount(double value)
         {
-            var account = await _accountRepository.GetAccount();
+            var account = await GetAccount();
 
             if (account == null) return false;
             
@@ -69,7 +69,7 @@ namespace core_application.Services
             account.Balance = value;
             account.OldBalances.Add(oldBalance);
 
-            if (!await _accountRepository.UpdateAccount(account)) return false;
+            if (!await UpdateAccount(account)) return false;
 
             return true;
 
@@ -77,7 +77,7 @@ namespace core_application.Services
 
         public async Task<bool> EditExpenseOrDeposit<T>(T operation)
         {
-            var account = await _accountRepository.GetAccount();
+            var account = await GetAccount();
 
             if (account == null) return false;
 
@@ -130,7 +130,7 @@ namespace core_application.Services
                 if(!await _expenseRepository.UpdateExpense(expense)) return false;
             }
 
-            if (!await _accountRepository.UpdateAccount(account)) return false;
+            if (!await UpdateAccount(account)) return false;
 
             return true;
 

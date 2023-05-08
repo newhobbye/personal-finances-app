@@ -45,5 +45,16 @@ namespace DomainTests
 
             Assert.NotNull(result);
         }
+
+        [Fact(DisplayName = "Editando uma conta")]
+        public async Task UpdateAccountTest()
+        {
+            var account = await _handlerService.GetAccount();
+            account.Balance = 1500;
+
+            var result = await _handlerService.UpdateAccount(account);
+
+            Assert.NotNull(result);
+        }
     }
 }

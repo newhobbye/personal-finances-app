@@ -43,7 +43,7 @@ namespace core_application.Repositories
 
         public async Task<bool> UpdateAccount(Account account)
         {
-            if (await GenericValidation(account) == false)
+            if (account == null)
             {
                 return false;
             }
