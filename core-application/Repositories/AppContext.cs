@@ -20,8 +20,11 @@ namespace core_application.Repositories
 
         public ApplicationContext() //ConstantsInjectionModel constants
         {
-            //comando que garante a existencia do banco de dados
-            Database.EnsureCreated();
+            //comando que garante a existencia do banco de dados. Mas, após criar o banco, não permite que as migrações funcionem
+            //Database.EnsureCreated();
+
+            //já este metodo, permite que as migrações atualizem o banco, e cria ele se não existir
+            Database.Migrate();
             //_constants = constants;
         }
 
@@ -41,7 +44,6 @@ namespace core_application.Repositories
             {
                 a.HasKey(a => a.Id);
                 a.Property(a => a.OldBalanceValue).IsRequired();
-                a.HasOne(acc => acc.Account).WithMany().HasPrincipalKey(foregin => foregin.Id);
             });
 
             modelBuilder.Entity<Deposit>(a =>
@@ -52,7 +54,7 @@ namespace core_application.Repositories
                 a.Property(a => a.Category).IsRequired().HasConversion<string>();
             });
 
-            modelBuilder.Entity<Deposit>(a =>
+            modelBuilder.Entity<Expense>(a =>
             {
                 a.HasKey(a => a.Id);
                 a.Property(a => a.Value).IsRequired();

@@ -7,7 +7,7 @@ namespace core_application.Models.Account
     {
         public Guid Id { get; set; }
         public double Balance { get; set; }
-        public int Code { get; set; } = 1;
+        //public int Code { get; set; } = 1;
         public virtual ICollection<OldBalance> OldBalances { get; set; }
 
         public Account()

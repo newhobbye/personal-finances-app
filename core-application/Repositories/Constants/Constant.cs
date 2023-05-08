@@ -3,7 +3,7 @@
     public static class Constant
     {
 
-        public const string DatabaseFilename = "Finance.db3";
+        public const string DatabaseFilename = "Finance.sqlite";
 
         public static string DatabasePath
         {

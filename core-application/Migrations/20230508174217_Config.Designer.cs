@@ -11,8 +11,8 @@ using core_application.Repositories;
 namespace core_application.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230508140546_Config3")]
-    partial class Config3
+    [Migration("20230508174217_Config")]
+    partial class Config
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,9 +43,6 @@ namespace core_application.Migrations
                     b.Property<Guid>("AccountId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("AccountId1")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("BalanceDate")
                         .HasColumnType("TEXT");
 
@@ -55,8 +52,6 @@ namespace core_application.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
-
-                    b.HasIndex("AccountId1");
 
                     b.ToTable("OldBalances");
                 });
@@ -100,8 +95,9 @@ namespace core_application.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Category")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("TEXT");
@@ -109,8 +105,9 @@ namespace core_application.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserCategoryId")
                         .HasColumnType("INTEGER");
@@ -162,14 +159,6 @@ namespace core_application.Migrations
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("core_application.Models.Account.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("core_application.Models.Deposits.Deposit", b =>

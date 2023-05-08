@@ -1,5 +1,8 @@
 using core_application.Interfaces.Services;
 using core_application.Models.Account;
+using core_application.Models.Deposits;
+using core_application.Models.Enums;
+using core_application.Models.Enums.Categories;
 using DomainTests.Dependency;
 using System.Threading.Tasks;
 using Xunit;
@@ -15,6 +18,8 @@ namespace DomainTests
         {
             _handlerService = DependencyInjection.GetService<IHandlerService>();
         }
+
+        #region[Operations of Account]
 
         [Fact(DisplayName = "Criando conta")]
         public async Task CreateAccountTest()
@@ -55,6 +60,26 @@ namespace DomainTests
             var result = await _handlerService.UpdateAccount(account);
 
             Assert.NotNull(result);
+        }
+
+        #endregion
+
+        [Fact(DisplayName = "Deposito e despesas")]
+        public async Task OperationInBalanceAccountTest()
+        {
+            var deposit = new Deposit
+            {
+                Value = 150,
+                Category = CategoryDeposit.Salary,
+                Status = StatusPayment.Paid,
+                Note = "Salario"
+            };
+
+            //está funcionando. Mas o account.UpdateBalance não alterou o valor. Verificar
+
+            var result = await _handlerService.OperationInBalanceAccount(deposit);
+
+            Assert.True(result);
         }
     }
 }

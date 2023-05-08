@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace core_application.Migrations
 {
     /// <inheritdoc />
-    public partial class Config3 : Migration
+    public partial class Config : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,7 +56,6 @@ namespace core_application.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     AccountId = table.Column<Guid>(type: "TEXT", nullable: false),
                     OldBalanceValue = table.Column<double>(type: "REAL", nullable: false),
-                    AccountId1 = table.Column<Guid>(type: "TEXT", nullable: false),
                     BalanceDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -65,12 +64,6 @@ namespace core_application.Migrations
                     table.ForeignKey(
                         name: "FK_OldBalances_Accounts_AccountId",
                         column: x => x.AccountId,
-                        principalTable: "Accounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OldBalances_Accounts_AccountId1",
-                        column: x => x.AccountId1,
                         principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -105,9 +98,9 @@ namespace core_application.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Value = table.Column<double>(type: "REAL", nullable: false),
-                    Category = table.Column<int>(type: "INTEGER", nullable: false),
+                    Category = table.Column<string>(type: "TEXT", nullable: false),
                     UserCategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    Status = table.Column<string>(type: "TEXT", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Note = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -136,11 +129,6 @@ namespace core_application.Migrations
                 name: "IX_OldBalances_AccountId",
                 table: "OldBalances",
                 column: "AccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OldBalances_AccountId1",
-                table: "OldBalances",
-                column: "AccountId1");
         }
 
         /// <inheritdoc />
