@@ -68,6 +68,7 @@ namespace core_application.Repositories
             modelBuilder.Entity<UserDepositCategory>(a =>
             {
                 a.HasKey(a => a.Id);
+                a.Property(p => p.Id).ValueGeneratedOnAdd();
                 a.Property(p => p.Category).IsRequired();
                 //a.HasOne(d => d.Deposit).WithOne(d => d.UserCategory);
             });
@@ -75,6 +76,7 @@ namespace core_application.Repositories
             modelBuilder.Entity<UserExpenseCategory>(a =>
             {
                 a.HasKey(a => a.Id);
+                a.Property(p => p.Id).ValueGeneratedOnAdd();
                 a.Property(p => p.Category).IsRequired();
                 //a.HasOne(d => d.Expense).WithOne(d => d.UserCategory);
             });

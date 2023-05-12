@@ -3,6 +3,7 @@ using core_application.Models.Account;
 using core_application.Models.Deposits;
 using core_application.Models.Enums;
 using core_application.Models.Enums.Categories;
+using core_application.Models.UserCategories;
 using DomainTests.Dependency;
 using System.Threading.Tasks;
 using Xunit;
@@ -28,7 +29,6 @@ namespace DomainTests
             {
                 Balance = 1000,
             };
-            //code danto pau sem estar na entidade do db
             var result = await _handlerService.CreateAccount(account);
 
             Assert.True(result);
@@ -72,7 +72,11 @@ namespace DomainTests
                 Value = 150,
                 Category = CategoryDeposit.Salary,
                 Status = StatusPayment.Paid,
-                Note = "Salario"
+                Note = "Salario",
+                UserCategory = new UserDepositCategory
+                {
+                    Category = "Teste"
+                }
             };
 
             //está funcionando. Mas o account.UpdateBalance não alterou o valor. Verificar

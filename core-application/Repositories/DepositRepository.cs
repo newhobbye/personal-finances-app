@@ -1,5 +1,6 @@
 ﻿using core_application.Interfaces.Repository;
 using core_application.Models.Deposits;
+using core_application.Models.UserCategories;
 using Microsoft.EntityFrameworkCore;
 
 namespace core_application.Repositories
@@ -22,6 +23,11 @@ namespace core_application.Repositories
         {
             return await _applicationContext.Deposits.Include(c => c.UserCategory).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
+
+        public async Task<List<UserDepositCategory>> GetUserDepositCategories()
+        {
+            return await _applicationContext.UserDepositCategories.ToListAsync();
+        } 
 
         public async Task<bool> InsertDeposit(Deposit deposit)
         {

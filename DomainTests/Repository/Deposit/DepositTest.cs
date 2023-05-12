@@ -22,19 +22,12 @@ namespace DomainTests.Repository.Deposit
             Assert.NotNull(result);
         }
 
-        [Fact(DisplayName = "Inserindo depositos")]
-        public async Task InsertDepositsTest()
+        [Fact(DisplayName = "Capturando Categorias de usuarios em depositos")]
+        public async Task GetCategoryDepositsTest()
         {
-            var deposit = new core_application.Models.Deposits.Deposit
-            {
-                Value = 150,
-                Category = core_application.Models.Enums.Categories.CategoryDeposit.Salary,
-                Note = "Teste sem categoria de usuario"
-            };
+            var result = await _deposit.GetUserDepositCategories();
 
-            var result = await _deposit.InsertDeposit(deposit);
-
-            Assert.True(result);
+            Assert.NotNull(result);
         }
 
     }
