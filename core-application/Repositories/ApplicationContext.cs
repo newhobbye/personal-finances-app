@@ -52,7 +52,8 @@ namespace core_application.Repositories
                 a.Property(a => a.Value).IsRequired();
                 a.Property(a => a.Status).IsRequired().HasConversion<string>();
                 a.Property(a => a.Category).IsRequired().HasConversion<string>();
-                //a.HasOne(d => d.UserCategory).WithOne(d => d.Deposit);
+                a.HasOne(d => d.UserCategory).WithOne(d => d.Deposit).HasForeignKey<UserDepositCategory>(d => d.DepositId);
+                
             });
 
             modelBuilder.Entity<Expense>(a =>
@@ -61,7 +62,7 @@ namespace core_application.Repositories
                 a.Property(a => a.Value).IsRequired();
                 a.Property(a => a.Status).IsRequired().HasConversion<string>();
                 a.Property(a => a.Category).IsRequired().HasConversion<string>();
-                //a.HasOne(d => d.UserCategory).WithOne(d => d.Expense);
+                a.HasOne(d => d.UserCategory).WithOne(d => d.Expense).HasForeignKey<UserExpenseCategory>(d => d.ExpenseId);
             });
 
             modelBuilder.Entity<UserDepositCategory>(a =>
