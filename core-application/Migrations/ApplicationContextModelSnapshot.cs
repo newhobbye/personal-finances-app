@@ -28,7 +28,7 @@ namespace core_application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("core_application.Models.Account.OldBalance", b =>
@@ -50,7 +50,7 @@ namespace core_application.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("OldBalances");
+                    b.ToTable("OldBalances", (string)null);
                 });
 
             modelBuilder.Entity("core_application.Models.Deposits.Deposit", b =>
@@ -83,7 +83,7 @@ namespace core_application.Migrations
 
                     b.HasIndex("UserCategoryId");
 
-                    b.ToTable("Deposits");
+                    b.ToTable("Deposits", (string)null);
                 });
 
             modelBuilder.Entity("core_application.Models.Expenses.Expense", b =>
@@ -116,7 +116,7 @@ namespace core_application.Migrations
 
                     b.HasIndex("UserCategoryId");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Expenses", (string)null);
                 });
 
             modelBuilder.Entity("core_application.Models.UserCategories.UserDepositCategory", b =>
@@ -131,7 +131,7 @@ namespace core_application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserDepositCategories");
+                    b.ToTable("UserDepositCategories", (string)null);
                 });
 
             modelBuilder.Entity("core_application.Models.UserCategories.UserExpenseCategory", b =>
@@ -146,7 +146,7 @@ namespace core_application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserExpenseCategories");
+                    b.ToTable("UserExpenseCategories", (string)null);
                 });
 
             modelBuilder.Entity("core_application.Models.Account.OldBalance", b =>

@@ -6,6 +6,6 @@ namespace core_application.Models.UserCategories
     {
         public int Id { get; set; }
         public string Category { get; set; }
-        public Expense Expense { get; set; }
+        //public Expense Expense { get; set; }
     }
 }

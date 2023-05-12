@@ -12,11 +12,8 @@ namespace core_application.Shared
     {
         public static IServiceCollection AddDependencies(this IServiceCollection services)
         {
-            //services.TryAdd(new ServiceDescriptor(
-            //    typeof(ApplicationContext),
-            //    serviceProvider => new ApplicationContext(constantsInjection), ServiceLifetime.Scoped));
-
-            services.TryAddScoped<ApplicationContext>();
+            //services.TryAddScoped<ApplicationContext>();
+            services.AddDbContext<ApplicationContext>();
 
             services.TryAdd(new ServiceDescriptor(
                 typeof(IAccountRepository), typeof(AccountRepository), ServiceLifetime.Scoped));
