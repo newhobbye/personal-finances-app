@@ -5,6 +5,7 @@ namespace core_application.Interfaces.Repository
     public interface IOldBalanceRepository
     {
         Task<bool> Insert(OldBalance balance);
-        Task<List<OldBalance>> GetBalances(Guid id);
+        Task<List<OldBalance>> GetBalances();
+        Task<List<OldBalance>> GetBalancesById(Guid id);
     }
 }

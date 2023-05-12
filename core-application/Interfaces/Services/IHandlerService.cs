@@ -10,6 +10,7 @@ namespace core_application.Interfaces.Services
         Task<bool> CreateAccount(Account account);
         Task<bool> UpdateAccount(Account account);
         Task<Account> GetAccount();
+        Task<List<OldBalance>> GetOldBalances();
         Task<bool> DeleteAccount(Account account);
     }
 }

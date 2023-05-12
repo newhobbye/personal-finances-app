@@ -1,5 +1,6 @@
 ﻿using core_application.Interfaces.Repository;
 using core_application.Models.Account;
+using Microsoft.EntityFrameworkCore;
 
 namespace core_application.Repositories
 {
@@ -21,12 +22,17 @@ namespace core_application.Repositories
 
             int line = await _applicationContext.SaveChangesAsync();
 
-            return (line > 0) ? true : false;
+            return (line > 0);
         }
 
-        public async Task<List<OldBalance>> GetBalances(Guid id)
+        public async Task<List<OldBalance>> GetBalancesById(Guid id)
         {
-            return _applicationContext.OldBalances.Where(i => i.AccountId == id).ToList();
+            return await _applicationContext.OldBalances.Where(i => i.AccountId == id).ToListAsync();
+        }
+
+        public async Task<List<OldBalance>> GetBalances()
+        {
+            return await _applicationContext.OldBalances.ToListAsync();
         }
     }
 }

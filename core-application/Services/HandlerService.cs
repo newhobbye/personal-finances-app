@@ -152,5 +152,14 @@ namespace core_application.Services
 
         #endregion
 
+        #region[OldBalance]
+
+        public async Task<List<OldBalance>> GetOldBalances()
+        {
+            return await _oldBalanceRepository.GetBalances();
+        }
+
+        #endregion
+
     }
 }

@@ -10,7 +10,6 @@ namespace core_application.Repositories
 {
     public class ApplicationContext: DbContext
     {
-        //private ConstantsInjectionModel _constants;
         public DbSet<Account> Accounts { get; set; }
         public DbSet<OldBalance> OldBalances { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
@@ -18,7 +17,7 @@ namespace core_application.Repositories
         public DbSet<UserDepositCategory> UserDepositCategories { get; set; }
         public DbSet<UserExpenseCategory> UserExpenseCategories { get; set; }
 
-        public ApplicationContext() //ConstantsInjectionModel constants
+        public ApplicationContext() 
         {
             //comando que garante a existencia do banco de dados. Mas, após criar o banco, não permite que as migrações funcionem
             //Database.EnsureCreated();

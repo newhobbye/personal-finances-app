@@ -43,6 +43,14 @@ namespace DomainTests
             Assert.NotNull(result);
         }
 
+        [Fact(DisplayName = "Pegando os balancos antigos")]
+        public async Task GetOldBalancesTest()
+        {
+            var result = await _handlerService.GetOldBalances();
+
+            Assert.NotNull(result);
+        }
+
         [Fact(DisplayName = "Removendo uma conta")]
         public async Task DeleteAccountTest()
         {
