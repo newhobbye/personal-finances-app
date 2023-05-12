@@ -1,5 +1,6 @@
 ﻿using core_application.Interfaces.Repository;
 using core_application.Models.Expenses;
+using core_application.Models.UserCategories;
 using Microsoft.EntityFrameworkCore;
 
 namespace core_application.Repositories
@@ -16,6 +17,11 @@ namespace core_application.Repositories
         public async Task<List<Expense>> GetExpenses()
         {
             return await _applicationContext.Expenses.Include(c => c.UserCategory).ToListAsync();
+        }
+
+        public async Task<List<UserExpenseCategory>> GetGetUserExpenseCategories()
+        {
+            return await _applicationContext.UserExpenseCategories.ToListAsync();
         }
 
         public async Task<Expense> GetExpenseById(Guid id)

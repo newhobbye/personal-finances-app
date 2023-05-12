@@ -3,6 +3,7 @@ using core_application.Models.Account;
 using core_application.Models.Deposits;
 using core_application.Models.Enums;
 using core_application.Models.Enums.Categories;
+using core_application.Models.Expenses;
 using core_application.Models.UserCategories;
 using DomainTests.Dependency;
 using System.Threading.Tasks;
@@ -67,21 +68,32 @@ namespace DomainTests
         [Fact(DisplayName = "Deposito e despesas")]
         public async Task OperationInBalanceAccountTest()
         {
-            var deposit = new Deposit
+            //var deposit = new Deposit
+            //{
+            //    Value = 150,
+            //    Category = CategoryDeposit.Salary,
+            //    Status = StatusPayment.Paid,
+            //    Note = "Salario",
+            //    UserCategory = new UserDepositCategory
+            //    {
+            //        Category = "Teste"
+            //    }
+            //};
+
+            var expense = new Expense
             {
-                Value = 150,
-                Category = CategoryDeposit.Salary,
+                Value = 100,
+                Category = CategoryExpense.Investiment,
                 Status = StatusPayment.Paid,
-                Note = "Salario",
-                UserCategory = new UserDepositCategory
+                Note = "Despesa de investimento",
+                UserCategory = new UserExpenseCategory
                 {
-                    Category = "Teste"
+                    Category = "Teste despeza"
                 }
             };
 
-            //está funcionando. Mas o account.UpdateBalance não alterou o valor. Verificar
-            //erro ao inserir depositos
-            var result = await _handlerService.OperationInBalanceAccount(deposit);
+
+            var result = await _handlerService.OperationInBalanceAccount(expense);
 
             Assert.True(result);
         }
