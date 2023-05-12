@@ -52,6 +52,7 @@ namespace core_application.Repositories
                 a.Property(a => a.Value).IsRequired();
                 a.Property(a => a.Status).IsRequired().HasConversion<string>();
                 a.Property(a => a.Category).IsRequired().HasConversion<string>();
+                a.HasOne(d => d.UserCategory).WithOne(d => d.Deposit);
             });
 
             modelBuilder.Entity<Expense>(a =>
@@ -60,18 +61,21 @@ namespace core_application.Repositories
                 a.Property(a => a.Value).IsRequired();
                 a.Property(a => a.Status).IsRequired().HasConversion<string>();
                 a.Property(a => a.Category).IsRequired().HasConversion<string>();
+                a.HasOne(d => d.UserCategory).WithOne(d => d.Expense);
             });
 
             modelBuilder.Entity<UserDepositCategory>(a =>
             {
                 a.HasKey(a => a.Id);
                 a.Property(p => p.Category).IsRequired();
+                a.HasOne(d => d.Deposit).WithOne(d => d.UserCategory);
             });
 
             modelBuilder.Entity<UserExpenseCategory>(a =>
             {
                 a.HasKey(a => a.Id);
                 a.Property(p => p.Category).IsRequired();
+                a.HasOne(d => d.Expense).WithOne(d => d.UserCategory);
             });
         }
     }
